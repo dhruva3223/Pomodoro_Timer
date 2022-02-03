@@ -6,10 +6,17 @@ LONG_BREAK_TIME = 20
 rep=0
 timer=None
 
+#Making start button visible
+def start_button_visible():
+    start_button=Button(text="Start",highlightthickness=0,command=start_clock)
+    start_button.grid(column=0,row=2)
+
+#Rest clock
 def reset_clock():
     window.after_cancel(timer)
     title_label.config(text="Timer",fg="green")
     canvas.itemconfig(timer_text,text="00:00")
+    start_button_visible()
 
 #timer aLgorithm
 def start_clock():
@@ -43,11 +50,15 @@ def count_down(clock_time):
         global timer
         timer=window.after(1000,count_down,clock_time-1)
     if clock_time==0:
-        start_button=Button(text="Start",highlightthickness=0,command=start_clock)
-        start_button.grid(column=0,row=2)
-    else:
         window.attributes("-topmost", True)
         window.attributes('-topmost', 0)
+        start_button_visible()
+    else:
+        tick=""
+        round_completed=math.floor(rep/2)
+        for _ in range(round_completed):
+            tick+="✔"
+        tick_mark.config(text=tick)
 
 
 #tkinter window setting
@@ -71,5 +82,8 @@ start_button.grid(column=0,row=2)
 #reset button
 reset_button=Button(text="Reset",highlightthickness=0,command=reset_clock)
 reset_button.grid(column=2,row=2)
+
+tick_mark=Label(text="",fg="green",bg="black")
+tick_mark.grid(column=1,row=3)
 
 window.mainloop()
