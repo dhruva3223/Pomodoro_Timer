@@ -1,7 +1,7 @@
 from tkinter import *
 import math
-WORK_TIME = 0.05
-SHORT_BREAK_TIME = 0.05
+WORK_TIME = 25
+SHORT_BREAK_TIME = 5
 LONG_BREAK_TIME = 20
 rep=0
 timer=None
