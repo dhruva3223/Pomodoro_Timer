@@ -1,9 +1,33 @@
 from tkinter import *
+WORK_TIME = 25
+SHORT_BREAK_TIME = 5
+LONG_BREAK_TIME = 20
+rep=0
+timer=None
 
-def reset_timer():
+def reset_clock():
     pass
 
-def start_timer():
+#timer aLgorithm
+def start_clock():
+    global rep
+    rep+=1
+    long_break_second=LONG_BREAK_TIME*60
+    short_break_second=SHORT_BREAK_TIME*60
+    work_second=WORK_TIME*60
+    
+    if rep%8==0:
+        count_down(long_break_second)
+        title_label.config(text="Break",fg="red")
+    elif rep%2==0:
+        count_down(short_break_second)
+        title_label.config(text="Break",fg="pink")
+    else:
+        count_down(work_second)
+        title_label.config(text="Work",fg="green")
+
+#countdown algorithm
+def count_down(clock_time):
     pass
 
 #tkinter window setting
@@ -20,11 +44,12 @@ canvas.create_image(115,112,image=tomato_img)
 timer_text=canvas.create_text(115,135,text="00:00",fill="white",font=("arial",35,"bold"))
 canvas.grid(column=1,row=1)
 
-#start/reset Button
-start_timer=Button(text="Start",highlightthickness=0,command=start_timer)
-start_timer.grid(column=0,row=2)
+#start button
+start_button=Button(text="Start",highlightthickness=0,command=start_clock)
+start_button.grid(column=0,row=2)
 
-reset_timer=Button(text="Reset",highlightthickness=0,command=reset_timer)
-reset_timer.grid(column=2,row=2)
+#reset button
+reset_button=Button(text="Reset",highlightthickness=0,command=reset_clock)
+reset_button.grid(column=2,row=2)
 
 window.mainloop()
