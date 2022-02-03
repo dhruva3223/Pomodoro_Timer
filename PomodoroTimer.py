@@ -1,4 +1,5 @@
 from tkinter import *
+import math
 WORK_TIME = 25
 SHORT_BREAK_TIME = 5
 LONG_BREAK_TIME = 20
@@ -28,7 +29,18 @@ def start_clock():
 
 #countdown algorithm
 def count_down(clock_time):
-    pass
+    count_minute=math.floor(clock_time/60)
+    count_second=clock_time%60
+    if count_second<10:
+        count_second=f"0{count_second}"
+    canvas.itemconfig(timer_text,text=f"{count_minute}:{count_second}")
+    if clock_time>0:
+        global timer
+        timer=window.after(1000,count_down,clock_time-1)
+    else:
+        window.attributes("-topmost", True)
+        window.attributes('-topmost', 0)
+
 
 #tkinter window setting
 window=Tk()
