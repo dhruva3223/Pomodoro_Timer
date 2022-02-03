@@ -1,16 +1,21 @@
 from tkinter import *
 import math
-WORK_TIME = 25
-SHORT_BREAK_TIME = 5
+WORK_TIME = 0.05
+SHORT_BREAK_TIME = 0.05
 LONG_BREAK_TIME = 20
 rep=0
 timer=None
 
 def reset_clock():
-    pass
+    window.after_cancel(timer)
+    title_label.config(text="Timer",fg="green")
+    canvas.itemconfig(timer_text,text="00:00")
 
 #timer aLgorithm
 def start_clock():
+    start_button.grid_forget()
+    dummy_button=Button(text="Start",highlightthickness=0)
+    dummy_button.grid(column=0,row=2)
     global rep
     rep+=1
     long_break_second=LONG_BREAK_TIME*60
@@ -37,6 +42,9 @@ def count_down(clock_time):
     if clock_time>0:
         global timer
         timer=window.after(1000,count_down,clock_time-1)
+    if clock_time==0:
+        start_button=Button(text="Start",highlightthickness=0,command=start_clock)
+        start_button.grid(column=0,row=2)
     else:
         window.attributes("-topmost", True)
         window.attributes('-topmost', 0)
